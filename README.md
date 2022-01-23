@@ -9,10 +9,10 @@ This repo is intended for me to explore different popular sorting algorithms whi
 - [x] Button to sort with bubble sort
 
 # Things to do
-- [] Highlight each node being compared during the sort.
-- [] Add sider to control the speed of the sort.
-- [] Add the ability to switch between algorithms.
-    - [] Implement merge sort
-    - [] Implement quick sort
-- [] Improve UI/UX.
-- [] Add welcome component.
+- [ ] Highlight each node being compared during the sort.
+- [ ] Add sider to control the speed of the sort.
+- [ ] Add the ability to switch between algorithms.
+    - [ ] Implement merge sort
+    - [ ] Implement quick sort
+- [ ] Improve UI/UX.
+- [ ] Add welcome component.
