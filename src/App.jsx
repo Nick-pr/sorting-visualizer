@@ -1,19 +1,19 @@
-import './App.css';
 import { useState, useEffect, useRef } from 'react';
-import Controls from './components/Controls/Controls.jsx';
-import Slider from './components/Slider/Slider.jsx';
-import Board from './components/Board/Board.jsx';
-import Node from './components/Node/Node.jsx';
+import Controls from './components/Controls.jsx';
+import Slider from './components/Slider.jsx';
+import Board from './components/Board.jsx';
 import { randBetween, sleep } from './utils.js';
+import bubbleSort from './algos/bubbleSort.js';
 
 const App = () => {
-    const MAX_DATA_SIZE = 300;
-    const MAX_DATA_HEIGHT = 500;
+    const MAX_DATA_SIZE = 45;
+    const MAX_DATA_HEIGHT = 99;
 
-    const [data, setData] = useState();
-    const [dataSize, setDataSize] = useState([]);
+    const [data, setData] = useState([]);
+    const [dataSize, setDataSize] = useState();
     const [sizedData, setSizedData] = useState([]);
     const [sortAlgo, setSortAlgo] = useState();
+    const [sortIter, setSortIter] = useState();
 
     const randomizeData = () => {
         const result = [];
@@ -25,46 +25,28 @@ const App = () => {
                 active: false,
             });
         }
-        console.log(result);
         setData(result);
+        setSortIter();
     };
 
-    const sizeData = () => {
-        const sizedData = data.slice(dataSize * -1);
+    const handleSortClick = () => {
+        const sort = async iter => {
+            for (let data of iter) {
+                await sleep(1);
+                setSizedData([...data]);
+            }
+        };
+        const iter = bubbleSort(sizedData);
+        sort(iter);
+    };
+
+    const resizeData = () => {
+        const sizedData = data.slice(0, dataSize);
         setSizedData(sizedData);
     };
 
-    const updateBoard = () => setSizedData([...sizedData]);
-
-    const sort = async () => {
-        let unsortedLength = sizedData.length;
-
-        const swap = (i1, i2) => {
-            const temp = sizedData[i1].value;
-            sizedData[i1].value = sizedData[i2].value;
-            sizedData[i2].value = temp;
-        };
-        while (unsortedLength >= 2) {
-            await sleep(20);
-            for (let i = 0; i < unsortedLength - 1; i++) {
-                const left = sizedData[i];
-                const right = sizedData[i + 1];
-
-                left.active = true;
-                right.active = true;
-
-
-                if (left.value > right.value) swap(i, i + 1);
-
-                left.active = false;
-                right.active = false;
-            }
-            unsortedLength--;
-            updateBoard()
-        }
-    };
-
-    useEffect(data ? sizeData : () => {}, [dataSize, data]);
+    useEffect(randomizeData, []);
+    useEffect(resizeData, [dataSize, data]);
 
     return (
         <div className="App">
@@ -76,14 +58,9 @@ const App = () => {
                     min={10}
                 />
                 <button onClick={randomizeData}>Randomize Data</button>
-                <button onClick={sort}>Sort!</button>
+                <button onClick={handleSortClick}>Sort!</button>
             </Controls>
-            <Board id="app-board">
-                {sizedData.map(node => {
-                    const { value, key, active } = node;
-                    return <Node key={key} value={value} active={active} />;
-                })}
-            </Board>
+            <Board id="app-board" data={sizedData} />
         </div>
     );
 };

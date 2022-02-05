@@ -1,7 +1,7 @@
-import './Controls.css'
+import styles from '../styles/Controls.module.css';
 const Controls = props => {
     return (
-        <div className='controls' id={props.id}>
+        <div className={styles.container}>
             {props.children}
         </div>
     );
