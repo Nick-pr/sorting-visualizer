@@ -1,0 +1,5 @@
+:root {
+    --blue: dodgerblue;
+
+    --active-node: var(--blue)
+}

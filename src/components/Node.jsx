@@ -1,18 +1,21 @@
-import { useRef } from 'react';
 import styles from '../styles/Node.module.css';
 const Node = props => {
-    const { active , sorted } = props;
+    const { active, sorted, value } = props;
+
+    const height = (value + 2) * 3;
+    const classes = [
+        styles.component,
+        active ? styles.active : styles.inactive,
+        sorted ? styles.sorted : styles.unsorted,
+    ].join(' ');
+
     return (
-        <div className={styles.container}>
-            {props.value}
+        <div className={classes}>
+            <p className={styles.value}>{props.value}</p>
             <div
-                className={styles.stick}
+                className={styles.bar}
                 value={props.value}
-                style={{
-                    height: (props.value + 2) * 3,
-                    backgroundColor: active ? 'cyan':
-                                    sorted ? 'orange': 'white',
-                }}
+                style={{ height }}
             ></div>
         </div>
     );

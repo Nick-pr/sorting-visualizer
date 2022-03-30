@@ -3,11 +3,10 @@ import Node from './Node.jsx';
 import styles from '../styles/Board.module.css';
 
 const Board = props => {
-    const { size, data } = props;
-    // console.log(data);
+    const { size, nodes } = props;
     return (
         <div id={props.id} className={styles.container}>
-            {data.map((node, index) => {
+            {nodes.map((node, index) => {
                 return (
                     <Node
                         value={node.value}

@@ -1,19 +1,32 @@
-.container {
+.component {
     transition: height 150ms ease;
-    margin: 0px 2px;
     flex-grow:1;
     display: flex;
+    max-width: 1.3em;
+    margin: .15em;
     flex-direction:column;
     align-items:center;
     justify-content:center;
 
 }
-.stick {
-    border: solid 1px black;
+.bar {
+    border: 0px;
     transition: height 150ms ease;
-    flex-grow:1;
-    width: 80%;
-    min-width: 1em;
-    margin: 1px;
-    border-radius: 2px;
+    width: 100%;
+    border-radius: .2em;
+}
+.value{
+    color:white;
+    font-weight:bold;
+    font-size: 1rem;
+}
+.component.sorted .bar{
+    background-color: orange;
+
+}
+.component.active .bar{
+    background-color: var(--blue) !important;
+}
+.component.unsorted .bar {
+    background-color: white;
 }
